@@ -17,7 +17,7 @@
     </typeAliases>
 
     <mappers>
-        <mapper resource="sunset/lucifer/springtest/mapper/FilmMapper.xml"/>
-        <package name="sunset.lucifer.springtest.dao.FilmDao"/>
+        <mapper resource="dhy/jc/reader/mapper/UserMapper.xml"/>
+        <package name="dhy.jc.reader.dao.UserDao"/>
     </mappers>
 </configuration>

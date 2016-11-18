@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dhy.jc.reader.dao.BookDao">
+    <!-- 映射配置 -->
+    <resultMap id="BookMap" type="Book">
+        <id property="id" column="id"/>
+        <result property="bookname" column="bookname"/>
+        <result property="author" column="author"/>
+        <result property="wordsize" column="wordsize"/>
+        <result property="chaptersize" column="chaptersize"/>
+        <result property="updated" column="updated"/>
+        <result property="reply" column="reply"/>
+        <result property="store" column="store"/>
+        <result property="item" column="item"/>
+    </resultMap>
+
+</mapper>
