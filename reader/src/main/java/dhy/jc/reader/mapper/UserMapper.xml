@@ -17,6 +17,20 @@
         <result property="gender" column="gender"/>
     </resultMap>
 
+    <resultMap id="UserStoredBookMap" type="User" extends="UserMap">
+        <collection property="id" ofType="Book">
+            <id property="id" column="bookid"/>
+            <result property="bookname" column="bookname"/>
+            <result property="author" column="author"/>
+            <result property="wordsize" column="wordsize"/>
+            <result property="chaptersize" column="chaptersize"/>
+            <result property="updated" column="updated"/>
+            <result property="reply" column="reply"/>
+            <result property="store" column="store"/>
+            <result property="item" column="item"/>
+        </collection>
+    </resultMap>
+
     <insert id="insertRecord" parameterType="User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO t_user (username,password,mobile) VALUES (#{username},#{password},#{mobile})
     </insert>
@@ -49,5 +63,4 @@
         wechat = #{wechat},
         gender = #{gender} WHERE id = #{id}
     </update>
-
 </mapper>

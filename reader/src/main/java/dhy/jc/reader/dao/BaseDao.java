@@ -51,7 +51,7 @@ public interface BaseDao<T> {
      * @param condition
      * @return
      */
-    public T getRecordByCondition(String condition);
+    public List<T> getRecordByCondition(String condition);
 
     /**
      * 单条件下的模糊查询
@@ -59,5 +59,5 @@ public interface BaseDao<T> {
      * @param vague
      * @return
      */
-    public T getRecordByVague(String vague);
+    public List<T> getRecordByVague(String vague);
 }

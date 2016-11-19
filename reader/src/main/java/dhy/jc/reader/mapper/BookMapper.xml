@@ -26,7 +26,7 @@
     <select id="getBookListWithBrands" resultMap="BookBrandsMap">
         SELECT
         book.*,
-        brands.*
+        brands.id as brandsid,brands.name
         FROM
         t_book book,
         t_brands brands,
@@ -35,6 +35,34 @@
         book.id = bb.bookid
         AND
         brands.id = bb.brandsid;
+    </select>
+
+    <select id="getRecords" resultMap="BookMap">
+        SELECT * FROM t_book;
+    </select>
+
+    <!-- 用模糊查询只输入一个参数的情况下 参数直接直接写成_parameter，否则mybatis找不到绑定的参数名称 -->
+    <select id="getRecordByVague" parameterType="String" resultMap="BookMap">
+        SELECT * FROM t_book WHERE
+        <if test="_parameter != ''">
+            bookname LIKE '%${_parameter}%'
+        </if>
+    </select>
+
+    <select id="getRecord" parameterType="Integer" resultMap="BookBrandsMap">
+        SELECT
+        book.*,
+        brands.id as brandsid,brands.name
+        FROM
+        t_book book,
+        t_brands brands,
+        t_book_brands bb
+        WHERE
+        book.id = bb.bookid
+        AND
+        brands.id = bb.brandsid
+        AND
+        book.id = #{id}
     </select>
 
 </mapper>

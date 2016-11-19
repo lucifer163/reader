@@ -36,11 +36,11 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
         return baseDao.getRecords();
     }
 
-    public T getRecordByCondition(String condition) {
+    public List<T> getRecordByCondition(String condition) {
         return baseDao.getRecordByCondition(condition);
     }
 
-    public T getRecordByVague(String vague) {
+    public List<T> getRecordByVague(String vague) {
         return baseDao.getRecordByVague(vague);
     }
 }
