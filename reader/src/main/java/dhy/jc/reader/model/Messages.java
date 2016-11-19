@@ -13,12 +13,20 @@ public class Messages {
     private int id;
     private String name;
 
+    private User user;
+
     public Messages() {
     }
 
     public Messages(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Messages(int id, String name, User user) {
+        this.id = id;
+        this.name = name;
+        this.user = user;
     }
 
     public int getId() {
@@ -35,5 +43,13 @@ public class Messages {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

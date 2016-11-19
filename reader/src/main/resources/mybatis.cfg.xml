@@ -16,8 +16,14 @@
     <typeAliases>
     </typeAliases>
 
+    <!-- 关于Mappers的写法，只能先全部resources 再全部Package 否则会出错 -->
     <mappers>
         <mapper resource="dhy/jc/reader/mapper/UserMapper.xml"/>
+        <mapper resource="dhy/jc/reader/mapper/BookMapper.xml"/>
+        <mapper resource="dhy/jc/reader/mapper/BrandsMapper.xml"/>
         <package name="dhy.jc.reader.dao.UserDao"/>
+        <package name="dhy.jc.reader.dao.BookDao"/>
+        <package name="dhy.jc.reader.dao.BrandsDao"/>
     </mappers>
+
 </configuration>

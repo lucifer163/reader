@@ -34,7 +34,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     @Override
     public int insertRecord(User record) {
         //判断联系方式
-        if (userDao.getRecordByMobile(record.getMobile()) != null) {
+        if (userDao.getRecordByMobiles(record.getMobile()) != null) {
             return MessageEnum.TEL_EXITED.getValue();
         }
         //密码md5加密
@@ -54,22 +54,22 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
      * @param record
      * @return
      */
-/*    @Override
+    @Override
     public int updateRecord(User record) {
         //判断email
-        if (userDao.getRecordByCondition(record.getEmail()) != null) {
+        if (userDao.getRecordByEmail(record) != null) {
             return MessageEnum.EMAIL_EXITED.getValue();
         }
         //判断联系方式
-        if (userDao.getRecordByCondition(record.getMobile()) != null) {
+        if (userDao.getRecordByMobile(record) != null) {
             return MessageEnum.TEL_EXITED.getValue();
         }
         //判断qq账号
-        if (userDao.getRecordByCondition(record.getQq()) != null) {
+        if (userDao.getRecordByQQ(record) != null) {
             return MessageEnum.QQ_EXITED.getValue();
         }
         //判断微信账号
-        if (userDao.getRecordByCondition(record.getWechat()) != null) {
+        if (userDao.getRecordByWechat(record) != null) {
             return MessageEnum.WECHAT_EXITED.getValue();
         }
         int count = userDao.updateRecord(record);
@@ -77,5 +77,5 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
             return MessageEnum.OPERATE_SUCCESS.getValue();
         }
         return MessageEnum.OPERATE_ERROR.getValue();
-    }*/
+    }
 }

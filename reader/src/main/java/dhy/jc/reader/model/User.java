@@ -3,6 +3,8 @@ package dhy.jc.reader.model;
 import org.apache.ibatis.type.Alias;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * 用户实体类
  * Created by Administrator on 2016/11/18.
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Component;
 @Alias("User")
 @Component("user")
 public class User {
+    //基本属性
     private int id;
     private String username;
     private String password;
@@ -20,6 +23,16 @@ public class User {
     private String wechat;
     private int bookage;
     private int gender;
+
+    //关联关系：
+    //1.和收藏书籍的关联关系：多对多
+    private List<Book> storeBooks;
+    //2.和推荐书籍的关联关系：多对多
+    private List<Book> RecommandBooks;
+    //3.和书评的关联关系：1对多
+    private List<Reply> replys;
+    //4.和私信的关联关系：1对多
+    private List<Messages> messages;
 
     public User() {
     }
@@ -32,6 +45,23 @@ public class User {
         this.mobile = mobile;
         this.password = password;
         this.qq = qq;
+        this.type = type;
+        this.username = username;
+        this.wechat = wechat;
+    }
+
+    public User(int bookage, String email, int gender, int id, List<Messages> messages, String mobile, String password, String qq, List<Book> recommandBooks, List<Reply> replys, List<Book> storeBooks, int type, String username, String wechat) {
+        this.bookage = bookage;
+        this.email = email;
+        this.gender = gender;
+        this.id = id;
+        this.messages = messages;
+        this.mobile = mobile;
+        this.password = password;
+        this.qq = qq;
+        this.RecommandBooks = recommandBooks;
+        this.replys = replys;
+        this.storeBooks = storeBooks;
         this.type = type;
         this.username = username;
         this.wechat = wechat;
@@ -115,5 +145,37 @@ public class User {
 
     public void setWechat(String wechat) {
         this.wechat = wechat;
+    }
+
+    public List<Messages> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Messages> messages) {
+        this.messages = messages;
+    }
+
+    public List<Book> getRecommandBooks() {
+        return RecommandBooks;
+    }
+
+    public void setRecommandBooks(List<Book> recommandBooks) {
+        RecommandBooks = recommandBooks;
+    }
+
+    public List<Reply> getReplys() {
+        return replys;
+    }
+
+    public void setReplys(List<Reply> replys) {
+        this.replys = replys;
+    }
+
+    public List<Book> getStoreBooks() {
+        return storeBooks;
+    }
+
+    public void setStoreBooks(List<Book> storeBooks) {
+        this.storeBooks = storeBooks;
     }
 }

@@ -21,8 +21,33 @@
         INSERT INTO t_user (username,password,mobile) VALUES (#{username},#{password},#{mobile})
     </insert>
 
-    <select id="getRecordByMobile" parameterType="String" resultType="User">
+    <select id="getRecordByMobile" parameterType="User" resultType="User">
+        SELECT * FROM t_user WHERE mobile = #{mobile} AND id NOT IN (#{id})
+    </select>
+
+    <select id="getRecordByMobiles" parameterType="String" resultType="User">
         SELECT * FROM t_user WHERE mobile = #{mobile}
     </select>
+
+    <select id="getRecordByEmail" parameterType="User" resultType="User">
+        SELECT * FROM t_user WHERE email = #{email} AND id NOT IN (#{id})
+    </select>
+
+    <select id="getRecordByQQ" parameterType="User" resultType="User">
+        SELECT * FROM t_user WHERE qq = #{qq} AND id NOT IN (#{id})
+    </select>
+
+    <select id="getRecordByWechat" parameterType="User" resultType="User">
+        SELECT * FROM t_user WHERE wechat = #{wechat} AND id NOT IN (#{id})
+    </select>
+
+    <update id="updateRecord" parameterType="User">
+        UPDATE t_user SET username = #{username},
+        mobile = #{mobile},
+        email = #{email},
+        qq = #{qq},
+        wechat = #{wechat},
+        gender = #{gender} WHERE id = #{id}
+    </update>
 
 </mapper>

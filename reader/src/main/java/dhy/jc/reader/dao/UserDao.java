@@ -7,11 +7,13 @@ import dhy.jc.reader.model.User;
  */
 public interface UserDao extends BaseDao<User> {
 
-    public User getRecordByEmail(String email);
+    public User getRecordByEmail(User user);
 
-    public User getRecordByMobile(String mobile);
+    public User getRecordByMobile(User user);
 
-    public User getRecordByQQ(String qq);
+    public User getRecordByMobiles(String mobile);
 
-    public User getRecordByWechat(String wechat);
+    public User getRecordByQQ(User user);
+
+    public User getRecordByWechat(User user);
 }

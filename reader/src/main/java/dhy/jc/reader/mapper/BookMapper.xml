@@ -16,4 +16,25 @@
         <result property="item" column="item"/>
     </resultMap>
 
+    <resultMap id="BookBrandsMap" type="Book" extends="BookMap">
+        <collection property="brandses" ofType="Brands">
+            <id property="id" column="brandsid"/>
+            <result property="name" column="name"/>
+        </collection>
+    </resultMap>
+
+    <select id="getBookListWithBrands" resultMap="BookBrandsMap">
+        SELECT
+        book.*,
+        brands.*
+        FROM
+        t_book book,
+        t_brands brands,
+        t_book_brands bb
+        WHERE
+        book.id = bb.bookid
+        AND
+        brands.id = bb.brandsid;
+    </select>
+
 </mapper>

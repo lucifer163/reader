@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Alias("Reply")
 @Component("reply")
 public class Reply {
+    //基本属性
     private int id;
     private int parentid;               //父级id
     private String localtime;
@@ -17,6 +18,12 @@ public class Reply {
     private int thumbsize;              //点赞数
     private int opposesize;             //反对数
     private int replysize;              //回复数
+
+    //关联关系
+    //1.和用户的关联关系：多对一
+    private User user;
+    //2.和书籍的关联关系：多对一
+    private Book book;
 
     public Reply() {
     }
@@ -29,6 +36,18 @@ public class Reply {
         this.parentid = parentid;
         this.replysize = replysize;
         this.thumbsize = thumbsize;
+    }
+
+    public Reply(Book book, int id, String localtime, String message, int opposesize, int parentid, int replysize, int thumbsize, User user) {
+        this.book = book;
+        this.id = id;
+        this.localtime = localtime;
+        this.message = message;
+        this.opposesize = opposesize;
+        this.parentid = parentid;
+        this.replysize = replysize;
+        this.thumbsize = thumbsize;
+        this.user = user;
     }
 
     public int getId() {
@@ -85,5 +104,21 @@ public class Reply {
 
     public void setThumbsize(int thumbsize) {
         this.thumbsize = thumbsize;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
