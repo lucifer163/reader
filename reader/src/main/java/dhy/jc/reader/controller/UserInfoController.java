@@ -20,11 +20,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2016/11/18.
+ * 用户查找相关接口
+ * Created by Administrator on 2016/11/21.
  */
 @Controller
 @Scope("prototype")
-public class UserController {
+public class UserInfoController {
+
     @Autowired
     @Qualifier("userService")
     private UserService userService;
@@ -33,69 +35,9 @@ public class UserController {
     private ExtendModel extendModel;
 
     /**
-     * 用户信息注册接口
-     * 请求数据格式：
-     * {"username":"",
-     * "password":"",
-     * "mobile":""}
-     *
-     * @param jsonCode 请求信息json
-     * @return jsonStr 发送信息json
-     */
-    @RequestMapping(value = "user/regist.json", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-    @ResponseBody
-    public String regist(@RequestBody String jsonCode) {
-        String jsonStr = "";
-        User user = JsonUtil.changeJsonToObject(jsonCode, User.class);
-        int value = userService.insertRecord(user);
-        if (value == 0) {
-            extendModel.setReturnMsg(MessageEnum.getValue(value).getDescription());
-            extendModel.setReturnCode("1100000");
-            jsonStr = JsonUtil.createJsonString(extendModel);
-            return jsonStr;
-        } else {
-            extendModel.setReturnMsg(MessageEnum.getValue(value).getDescription());
-            extendModel.setReturnCode("1100011");
-            jsonStr = JsonUtil.createJsonString(extendModel);
-            return jsonStr;
-        }
-    }
-
-    /**
-     * 用户信息完善接口
-     * 请求数据格式：
-     * {"id":"12",
-     * "username":"狼皇啸霜月",
-     * "mobile":"157068445801",
-     * "qq":"12345678901",
-     * "wechat":"12345678901",
-     * "email":"12345678901",
-     * "gender":"1"}
-     *
-     * @param jsonCode 请求数据json
-     * @return jsonStr 返回数据json
-     */
-    @RequestMapping(value = "user/update.json", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-    @ResponseBody
-    public String update(@RequestBody String jsonCode) {
-        String jsonStr = "";
-        User user = JsonUtil.changeJsonToObject(jsonCode, User.class);
-        int value = userService.updateRecord(user);
-        if (value == 0) {
-            extendModel.setReturnMsg(MessageEnum.getValue(value).getDescription());
-            extendModel.setReturnCode("1100000");
-            jsonStr = JsonUtil.createJsonString(extendModel);
-            return jsonStr;
-        } else {
-            extendModel.setReturnMsg(MessageEnum.getValue(value).getDescription());
-            extendModel.setReturnCode("1100011");
-            jsonStr = JsonUtil.createJsonString(extendModel);
-            return jsonStr;
-        }
-    }
-
-    /**
      * 获取包含用户自定义书架的用户集合
+     * 请求数据：
+     * {"id":1}
      *
      * @return 用户详细信息 用户自定义书架
      */
@@ -109,6 +51,8 @@ public class UserController {
 
     /**
      * 获取查找用户的自定义书架
+     * 请求数据：
+     * {"id":1}
      *
      * @param jsonCode 用户id
      * @return 自定义书架集合
@@ -146,6 +90,8 @@ public class UserController {
 
     /**
      * 根据id获取单个用户信息
+     * 请求数据：
+     * {"id":1}
      *
      * @param jsonCode id
      * @return
@@ -161,33 +107,9 @@ public class UserController {
     }
 
     /**
-     * 删除用户 （管理员权限）
-     *
-     * @param jsonCode id
-     * @return
-     */
-    @RequestMapping(value = "user/deleteUserById.json", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-    @ResponseBody
-    public String deleteUserById(@RequestBody String jsonCode) {
-        String jsonStr = "";
-        Map map = JsonUtil.changeGsonToMaps(jsonCode);
-        double id = (Double) map.get("id");
-        int value = userService.deleteRecordByID((int) id);
-        if (value == 0) {
-            extendModel.setReturnMsg(MessageEnum.getValue(value).getDescription());
-            extendModel.setReturnCode("1100000");
-            jsonStr = JsonUtil.createJsonString(extendModel);
-            return jsonStr;
-        } else {
-            extendModel.setReturnMsg(MessageEnum.getValue(value).getDescription());
-            extendModel.setReturnCode("1100011");
-            jsonStr = JsonUtil.createJsonString(extendModel);
-            return jsonStr;
-        }
-    }
-
-    /**
      * 根据id获取单个用户推荐书籍信息
+     * 请求数据：
+     * {"id":1}
      *
      * @param jsonCode id
      * @return
@@ -204,6 +126,8 @@ public class UserController {
 
     /**
      * 根据id获取单个用户搜藏书籍信息
+     * 请求数据：
+     * {"id":1}
      *
      * @param jsonCode id
      * @return
