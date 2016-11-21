@@ -4,6 +4,7 @@
 
 <mapper namespace="dhy.jc.reader.dao.UserDao">
     <!-- 映射配置 -->
+    <!-- 用户基本配置 -->
     <resultMap id="UserMap" type="User">
         <id property="id" column="id"/>
         <result property="username" column="username"/>
@@ -17,8 +18,9 @@
         <result property="gender" column="gender"/>
     </resultMap>
 
+    <!-- 用户-收藏书籍关联 -->
     <resultMap id="UserStoredBookMap" type="User" extends="UserMap">
-        <collection property="id" ofType="Book">
+        <collection property="storeBooks" ofType="Book">
             <id property="id" column="bookid"/>
             <result property="bookname" column="bookname"/>
             <result property="author" column="author"/>
@@ -28,6 +30,14 @@
             <result property="reply" column="reply"/>
             <result property="store" column="store"/>
             <result property="item" column="item"/>
+        </collection>
+    </resultMap>
+
+    <!-- 用户-自定义书架关联 -->
+    <resultMap id="UserShelvesMap" type="User" extends="UserMap">
+        <collection property="shelves" ofType="Shelves">
+            <id property="id" column="shelvesid"/>
+            <result property="name" column="name"/>
         </collection>
     </resultMap>
 
@@ -63,4 +73,34 @@
         wechat = #{wechat},
         gender = #{gender} WHERE id = #{id}
     </update>
+
+    <select id="getUsersWithShelves" resultMap="UserShelvesMap">
+        SELECT
+        u.*,
+        s.id as shelvesid, s.name
+        FROM
+        t_user u,
+        t_shelves s,
+        t_user_shelves us
+        WHERE
+        u.id = us.userid
+        AND
+        s.id = us.shelvesid;
+    </select>
+
+    <select id="getUserWithShelves" resultMap="UserShelvesMap" parameterType="Integer">
+        SELECT
+        u.*,
+        s.id as shelvesid, s.name
+        FROM
+        t_user u,
+        t_shelves s,
+        t_user_shelves us
+        WHERE
+        u.id = us.userid
+        AND
+        s.id = us.shelvesid
+        AND
+        u.id = #{id};
+    </select>
 </mapper>

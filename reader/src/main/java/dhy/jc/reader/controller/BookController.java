@@ -7,9 +7,11 @@ import dhy.jc.reader.service.BookService;
 import dhy.jc.reader.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.Map;
  * Created by Administrator on 2016/11/18.
  */
 @Controller
+@Scope("prototype")
 public class BookController {
 
     @Autowired
@@ -62,7 +65,7 @@ public class BookController {
      * @param jsonCode
      * @return
      */
-    @RequestMapping(value = "book/getBooksByVague.json", produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "book/getBooksByVague.json", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
     public String getBooksByVague(@RequestBody String jsonCode) {
         Map map = JsonUtil.changeGsonToMaps(jsonCode);
@@ -76,10 +79,11 @@ public class BookController {
      * 根据id获取书籍信息
      * 请求参数：
      * {"id":"1"}
+     *
      * @param jsonCode
      * @return
      */
-    @RequestMapping(value = "book/getBookById.json", produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "book/getBookById.json", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
     public String getBookById(@RequestBody String jsonCode) {
         String jsonStr = "";

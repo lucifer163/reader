@@ -33,6 +33,8 @@ public class User {
     private List<Reply> replys;
     //4.和私信的关联关系：1对多
     private List<Messages> messages;
+    //5.自定义书架的关联关系：
+    private List<Shelves> shelves;
 
     public User() {
     }
@@ -50,7 +52,7 @@ public class User {
         this.wechat = wechat;
     }
 
-    public User(int bookage, String email, int gender, int id, List<Messages> messages, String mobile, String password, String qq, List<Book> recommandBooks, List<Reply> replys, List<Book> storeBooks, int type, String username, String wechat) {
+    public User(int bookage, String email, int gender, int id, List<Messages> messages, String mobile, String password, String qq, List<Book> recommandBooks, List<Reply> replys, List<Book> storeBooks, int type, String username, String wechat, List<Shelves> shelves) {
         this.bookage = bookage;
         this.email = email;
         this.gender = gender;
@@ -65,6 +67,7 @@ public class User {
         this.type = type;
         this.username = username;
         this.wechat = wechat;
+        this.shelves = shelves;
     }
 
     public int getBookage() {
@@ -177,5 +180,13 @@ public class User {
 
     public void setStoreBooks(List<Book> storeBooks) {
         this.storeBooks = storeBooks;
+    }
+
+    public List<Shelves> getShelves() {
+        return shelves;
+    }
+
+    public void setShelves(List<Shelves> shelves) {
+        this.shelves = shelves;
     }
 }

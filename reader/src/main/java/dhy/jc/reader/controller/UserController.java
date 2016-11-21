@@ -7,16 +7,21 @@ import dhy.jc.reader.service.UserService;
 import dhy.jc.reader.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Administrator on 2016/11/18.
  */
 @Controller
+@Scope("prototype")
 public class UserController {
     @Autowired
     @Qualifier("userService")
@@ -83,6 +88,32 @@ public class UserController {
             extendModel.setReturnMsg(MessageEnum.getValue(value).getDescription());
             extendModel.setReturnCode("1100011");
             jsonStr = JsonUtil.createJsonString(extendModel);
+            return jsonStr;
+        }
+    }
+
+    @RequestMapping(value = "user/getUsersWithShelves.json", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String getUsersWithShelves() {
+        List<User> users = userService.getUsersWithShelves();
+        String jsonStr = JsonUtil.createJsonList(users);
+        return jsonStr;
+    }
+
+    @RequestMapping(value = "user/getUserWithShelves.json", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String getUserWithShelves(@RequestBody String jsonCode) {
+        String jsonStr = "";
+        Map map = JsonUtil.changeGsonToMaps(jsonCode);
+        if (map.get("id") == null || "".equals(map.get("id"))) {
+            extendModel.setReturnMsg(MessageEnum.JSON_ACCESS_ERROR.getDescription());
+            extendModel.setReturnCode("1100001");
+            jsonStr = JsonUtil.createJsonString(extendModel);
+            return jsonStr;
+        } else {
+            double id = (Double) map.get("id");
+            User user = userService.getUserWithShelves((int) id);
+            jsonStr = JsonUtil.createJsonString(user);
             return jsonStr;
         }
     }

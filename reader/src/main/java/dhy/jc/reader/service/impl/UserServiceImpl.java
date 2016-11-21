@@ -8,6 +8,8 @@ import dhy.jc.reader.util.DataOpt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2016/11/18.
  */
@@ -77,5 +79,24 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
             return MessageEnum.OPERATE_SUCCESS.getValue();
         }
         return MessageEnum.OPERATE_ERROR.getValue();
+    }
+
+    /**
+     * 获取用户自定义书架集合
+     *
+     * @return
+     */
+    public List<User> getUsersWithShelves() {
+        return userDao.getUsersWithShelves();
+    }
+
+    /**
+     * 获取用户自定义书架对象
+     *
+     * @param id
+     * @return
+     */
+    public User getUserWithShelves(int id) {
+        return userDao.getUserWithShelves(id);
     }
 }
