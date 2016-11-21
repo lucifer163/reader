@@ -99,4 +99,40 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     public User getUserWithShelves(int id) {
         return userDao.getUserWithShelves(id);
     }
+
+    /**
+     * 删除用户
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public int deleteRecordByID(int id) {
+        int count = userDao.deleteRecordByID(id);
+        if (count > 0) {
+            return MessageEnum.OPERATE_SUCCESS.getValue();
+        }
+        return MessageEnum.OPERATE_ERROR.getValue();
+    }
+
+    /**
+     * 根据id 获取单个用户的推荐书籍信息
+     *
+     * @param id
+     * @return
+     */
+    public User getRecommandsByUserId(int id) {
+        return userDao.getRecommandsByUserId(id);
+    }
+
+    /**
+     * 根据id 获取单个用户的收藏书籍信息
+     *
+     * @param id
+     * @return
+     */
+    public User getStoreBookByUserId(int id) {
+        return userDao.getStoreBookByUserId(id);
+    }
+
 }

@@ -28,8 +28,8 @@ public class Book {
     private List<Brands> brandses;
     //3.和书评的关联关系：多对1
     private List<Reply> repliys;
-    //4.和推荐书籍的关联关系：多对多
-    private List<User> recommandUsers;
+    //4.和推荐书籍的关联关系：1对多
+    private List<Recommand> recommands;
 
     public Book() {
     }
@@ -46,14 +46,14 @@ public class Book {
         this.wordsize = wordsize;
     }
 
-    public Book(String author, String bookname, List<Brands> brandses, String chaptersize, int id, String item, List<User> recommandUsers, List<Reply> repliys, int reply, int store, List<User> storeUsers, int updated, String wordsize) {
+    public Book(String author, String bookname, List<Brands> brandses, String chaptersize, int id, String item, List<Recommand> recommands, List<Reply> repliys, int reply, int store, List<User> storeUsers, int updated, String wordsize) {
         this.author = author;
         this.bookname = bookname;
         this.brandses = brandses;
         this.chaptersize = chaptersize;
         this.id = id;
         this.item = item;
-        this.recommandUsers = recommandUsers;
+        this.recommands = recommands;
         this.repliys = repliys;
         this.reply = reply;
         this.store = store;
@@ -142,12 +142,12 @@ public class Book {
         this.brandses = brandses;
     }
 
-    public List<User> getRecommandUsers() {
-        return recommandUsers;
+    public List<Recommand> getRecommands() {
+        return recommands;
     }
 
-    public void setRecommandUsers(List<User> recommandUsers) {
-        this.recommandUsers = recommandUsers;
+    public void setRecommands(List<Recommand> recommands) {
+        this.recommands = recommands;
     }
 
     public List<Reply> getRepliys() {

@@ -41,9 +41,71 @@
         </collection>
     </resultMap>
 
+    <!-- 用户推荐书籍关联 -->
+    <resultMap id="UserRecommandMap" type="User" extends="UserMap">
+        <collection property="RecommandBooks" ofType="Book">
+            <id property="id" column="bookid"/>
+            <result property="bookname" column="bookname"/>
+            <result property="author" column="author"/>
+            <result property="wordsize" column="wordsize"/>
+            <result property="chaptersize" column="chaptersize"/>
+            <result property="updated" column="updated"/>
+            <result property="reply" column="reply"/>
+            <result property="store" column="store"/>
+            <result property="item" column="item"/>
+            <collection property="recommands" ofType="Recommand">
+                <id property="id" column="commandid"/>
+                <result property="localtime" column="localtime"/>
+                <result property="reason" column="reason"/>
+                <result property="thumbsize" column="thumbsize"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <!-- 用户与书评之间的关联关系 -->
+    <resultMap id="UserReplyMapper" type="User" extends="UserMap">
+        <collection property="RecommandBooks" ofType="Book">
+            <id property="id" column="bookid"/>
+            <result property="bookname" column="bookname"/>
+            <result property="author" column="author"/>
+            <result property="wordsize" column="wordsize"/>
+            <result property="chaptersize" column="chaptersize"/>
+            <result property="updated" column="updated"/>
+            <result property="reply" column="reply"/>
+            <result property="store" column="store"/>
+            <result property="item" column="item"/>
+            <collection property="replys" ofType="Reply">
+                <id property="id" column="replyid"/>
+                <result property="parentid" column="parentid"/>
+                <result property="localtime" column="localtime"/>
+                <result property="message" column="message"/>
+                <result property="thumbsize" column="thumbsize"/>
+                <result property="opposesize" column="opposesize"/>
+                <result property="replysize" column="replysize"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <!-- 用户私信 仅关联发送者 -->
+    <resultMap id="UserMessageMap" type="User" extends="UserMap">
+        <collection property="messages" ofType="Messages">
+            <id property="id" column="messageid"/>
+            <result property="item" column="item"/>
+            <result property="localtime" column="localtime"/>
+        </collection>
+    </resultMap>
+
     <insert id="insertRecord" parameterType="User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO t_user (username,password,mobile) VALUES (#{username},#{password},#{mobile})
     </insert>
+
+    <select id="getRecords" resultMap="UserMap">
+        SELECT * FROM t_user;
+    </select>
+
+    <select id="getRecord" resultType="User" parameterType="Integer">
+        SELECT * FROM t_user WHERE id = #{id}
+    </select>
 
     <select id="getRecordByMobile" parameterType="User" resultType="User">
         SELECT * FROM t_user WHERE mobile = #{mobile} AND id NOT IN (#{id})
@@ -64,6 +126,10 @@
     <select id="getRecordByWechat" parameterType="User" resultType="User">
         SELECT * FROM t_user WHERE wechat = #{wechat} AND id NOT IN (#{id})
     </select>
+
+    <delete id="deleteRecordByID" parameterType="Integer">
+        DELETE FROM t_user WHERE id = #{id}
+    </delete>
 
     <update id="updateRecord" parameterType="User">
         UPDATE t_user SET username = #{username},
@@ -103,4 +169,43 @@
         AND
         u.id = #{id};
     </select>
+
+    <select id="getRecommandsByUserId" resultMap="UserRecommandMap" parameterType="Integer">
+        SELECT
+        u.id as userid, u.username,
+        b.id as bookid, b.bookname,
+        d.commandid,
+        d.localtime,
+        d.thumbsize
+        FROM
+        t_user u,
+        t_book b,
+        t_recommand r,
+        t_command_description d
+        WHERE
+        u.id = r.userid
+        AND
+        b.id = r.bookid
+        AND
+        r.id = d.id
+        AND
+        u.id = #{id};
+    </select>
+
+    <select id="getStoreBookByUserId" resultMap="UserStoredBookMap" parameterType="Integer">
+        SELECT
+        u.*,
+        b.id as bookid, b.bookname, b.author
+        FROM
+        t_user u,
+        t_book b,
+        t_user_book ub
+        WHERE
+        u.id = ub.userid
+        AND
+        b.id = ub.bookid
+        AND
+        u.id = #{id};
+    </select>
+
 </mapper>

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class Messages {
     private int id;
     private String name;
+    private String localtime;
 
     private User user;
 
@@ -23,10 +24,11 @@ public class Messages {
         this.name = name;
     }
 
-    public Messages(int id, String name, User user) {
+    public Messages(int id, String name, User user, String localtime) {
         this.id = id;
         this.name = name;
         this.user = user;
+        this.localtime = localtime;
     }
 
     public int getId() {
@@ -43,6 +45,14 @@ public class Messages {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLocaltime() {
+        return localtime;
+    }
+
+    public void setLocaltime(String localtime) {
+        this.localtime = localtime;
     }
 
     public User getUser() {
