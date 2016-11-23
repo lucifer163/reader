@@ -6,6 +6,7 @@
     <!-- 映射配置 -->
     <resultMap id="BookMap" type="Book">
         <id property="id" column="id"/>
+        <result property="logo" column="logo"/>
         <result property="bookname" column="bookname"/>
         <result property="author" column="author"/>
         <result property="wordsize" column="wordsize"/>
@@ -22,6 +23,10 @@
             <result property="name" column="name"/>
         </collection>
     </resultMap>
+
+    <insert id="insertRecord" parameterType="Book">
+        INSERT INTO t_book (bookname, author, item) VALUES (#{bookname}, #{author},#{item});
+    </insert>
 
     <select id="getBookListWithBrands" resultMap="BookBrandsMap">
         SELECT

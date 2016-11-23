@@ -1,6 +1,5 @@
 package dhy.jc.reader.controller;
 
-import dhy.jc.reader.enums.MessageEnum;
 import dhy.jc.reader.model.Book;
 import dhy.jc.reader.model.ExtendModel;
 import dhy.jc.reader.service.BookService;
@@ -22,7 +21,7 @@ import java.util.Map;
  */
 @Controller
 @Scope("prototype")
-public class BookController {
+public class BookInfoController {
 
     @Autowired
     @Qualifier("bookService")
@@ -49,9 +48,9 @@ public class BookController {
      *
      * @return
      */
-    @RequestMapping(value = "book/getBooksWithoutBrands.json", produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "book/getBookWithOutAnything.json", produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String getBookWithOutBrands() {
+    public String getBookWithOutAnything() {
         List<Book> books = bookService.getRecords();
         String jsonStr = JsonUtil.createJsonList(books);
         return jsonStr;
@@ -86,17 +85,28 @@ public class BookController {
     @RequestMapping(value = "book/getBookById.json", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
     public String getBookById(@RequestBody String jsonCode) {
-        String jsonStr = "";
         Map map = JsonUtil.changeGsonToMaps(jsonCode);
-        if (map.get("id") == null || "".equals(map.get("id"))) {
-            extendModel.setReturnMsg(MessageEnum.JSON_ACCESS_ERROR.getDescription());
-            extendModel.setReturnCode("1100001");
-            jsonStr = JsonUtil.createJsonString(extendModel);
-            return jsonStr;
-        }
         double id = (Double) map.get("id");
         Book book = bookService.getRecord((int) id);
-        jsonStr = JsonUtil.createJsonString(book);
+        String jsonStr = JsonUtil.createJsonString(book);
+        return jsonStr;
+    }
+
+    /**
+     * 根据id获取书籍目录
+     * 请求参数：
+     * {"id":"1"}
+     *
+     * @param jsonCode
+     * @return
+     */
+    @RequestMapping(value = "book/getChapterByBookId.json", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String getChapterByBookId(@RequestBody String jsonCode) {
+        Map map = JsonUtil.changeGsonToMaps(jsonCode);
+        double id = (Double) map.get("id");
+        Book book = bookService.getChapterByBookId((int) id);
+        String jsonStr = JsonUtil.createJsonString(book);
         return jsonStr;
     }
 }

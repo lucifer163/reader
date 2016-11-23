@@ -33,4 +33,17 @@ public class BookServiceImpl extends BaseServiceImpl<Book> implements BookServic
     public List<Book> getBookListWithBrands() {
         return bookDao.getBookListWithBrands();
     }
+
+    /**
+     * 获取包含图书目录的图书信息
+     *
+     * @param id
+     * @return
+     */
+    public Book getChapterByBookId(int id) {
+        Book book = bookDao.getChapterByBookId(id);
+        int chapterSize = bookDao.getChapterSizeByBookId(id);
+        book.setChaptersize(chapterSize);
+        return book;
+    }
 }

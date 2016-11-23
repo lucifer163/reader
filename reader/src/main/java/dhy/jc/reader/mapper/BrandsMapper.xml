@@ -12,6 +12,7 @@
     <resultMap id="BrandsBookMap" type="Brands" extends="BrandsMap">
         <collection property="books" ofType="Book">
             <id property="id" column="bookid"/>
+            <result property="logo" column="logo"/>
             <result property="bookname" column="bookname"/>
             <result property="author" column="author"/>
             <result property="wordsize" column="wordsize"/>

@@ -10,6 +10,7 @@ public enum MessageEnum {
     OPERATE_SUCCESS(0, "success"),
     OPERATE_ERROR(1, "error"),
     JSON_ACCESS_ERROR(2, "参数请求错误"),
+    FILE_UPLOAD_ERROR(3, "非法的文件后缀"),
 
     //记录信息已经存在的部分:
     USER_EXITED(10, "该账号名称已被注册"),

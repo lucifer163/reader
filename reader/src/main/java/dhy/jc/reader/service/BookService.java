@@ -15,4 +15,12 @@ public interface BookService extends BaseService<Book> {
      * @return 书籍信息
      */
     public List<Book> getBookListWithBrands();
+
+    /**
+     * 获取包含图书目录的图书信息
+     *
+     * @param id
+     * @return
+     */
+    public Book getChapterByBookId(int id);
 }

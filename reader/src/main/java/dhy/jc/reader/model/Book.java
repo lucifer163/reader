@@ -13,14 +13,16 @@ import java.util.List;
 @Component("book")
 public class Book {
     private int id;
+    private String logo;
     private String bookname;
     private String author;
     private String wordsize;
-    private String chaptersize;
+    private int chaptersize;
     private int updated;
     private int reply;
     private int store;              //被收藏数
     private String item;
+    private String url;
 
     //1.和用户的收藏关系：多对多
     private List<User> storeUsers;
@@ -30,12 +32,21 @@ public class Book {
     private List<Reply> repliys;
     //4.和推荐书籍的关联关系：1对多
     private List<Recommand> recommands;
+    //5.和章节的关联关系
+    private List<Chapter> chapters;
 
     public Book() {
     }
 
-    public Book(String author, String bookname, String chaptersize, int id, String item, int reply, int store, int updated, String wordsize) {
+    public Book(String author, String bookname, String item) {
         this.author = author;
+        this.bookname = bookname;
+        this.item = item;
+    }
+
+    public Book(String logo, String author, String bookname, int chaptersize, int id, String item, int reply, int store, int updated, String wordsize) {
+        this.author = author;
+        this.logo = logo;
         this.bookname = bookname;
         this.chaptersize = chaptersize;
         this.id = id;
@@ -46,8 +57,9 @@ public class Book {
         this.wordsize = wordsize;
     }
 
-    public Book(String author, String bookname, List<Brands> brandses, String chaptersize, int id, String item, List<Recommand> recommands, List<Reply> repliys, int reply, int store, List<User> storeUsers, int updated, String wordsize) {
+    public Book(String url, String logo, String author, String bookname, List<Brands> brandses, int chaptersize, int id, String item, List<Recommand> recommands, List<Reply> repliys, int reply, int store, List<User> storeUsers, int updated, String wordsize, List<Chapter> chapters) {
         this.author = author;
+        this.logo = logo;
         this.bookname = bookname;
         this.brandses = brandses;
         this.chaptersize = chaptersize;
@@ -60,6 +72,8 @@ public class Book {
         this.storeUsers = storeUsers;
         this.updated = updated;
         this.wordsize = wordsize;
+        this.chapters = chapters;
+        this.url = url;
     }
 
     public String getAuthor() {
@@ -78,11 +92,11 @@ public class Book {
         this.bookname = bookname;
     }
 
-    public String getChaptersize() {
+    public int getChaptersize() {
         return chaptersize;
     }
 
-    public void setChaptersize(String chaptersize) {
+    public void setChaptersize(int chaptersize) {
         this.chaptersize = chaptersize;
     }
 
@@ -164,5 +178,29 @@ public class Book {
 
     public void setStoreUsers(List<User> storeUsers) {
         this.storeUsers = storeUsers;
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
